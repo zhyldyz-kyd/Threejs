@@ -22,23 +22,25 @@ scene.background = new THREE.Color("lightskyblue");
 }
 
 const tree = [
-  { length: 100, angle: 0, branches: 2 }, // root
-  { length: 40, angle: -1, branches: 3 }, // first branch
-  { length: 50, angle: 0.8, branches: 0 }, // 1st child branch
-  { length: 40, angle: 0.3, branches: 0 }, // 2nd child branch
-  { length: 30, angle: -0.3, branches: 0 }, // 3rd child branch
-  { length: 50, angle: 0.8, branches: 2 }, // second branch
-  { length: 50, angle: 0.5, branches: 0 }, // 1st child branch
-  { length: 40, angle: -0.6, branches: 2 }, // 2nd child branch
-  { length: 40, angle: -0.3, branches: 0 }, // 1st grandchild branch
-  { length: 95, angle: 0.3, branches: 0 }, // 2st grandchild branch
+  { length: 100, angle: 0, branches: 3 }, // root
+  { length: 100, angle: 0, branches: 3 }, // root
+  { length: 50, angle: 0.67, branches: 0 }, // 1st child branch
+  { length: 50, angle: 0, branches: 0 }, // 2nd child branch
+  { length: 50, angle: -0.67, branches: 0 }, // 3rd child branch
+  { length: 50, angle: 0.67, branches: 3 }, // second branch
+  { length: 50, angle: 0.67, branches: 0 }, // 1st child branch
+  { length: 50, angle: 0, branches: 0 }, // 2nd child branch
+  { length: 50, angle: -0.67, branches: 0 }, // 2nd child branch
+  { length: 40, angle: -0.67, branches: 0 }, // third branch
 ];
 
 function addBranch(parent: any, offset: any, tree: any, ndx = 0) {
   const { length, angle, branches } = tree[ndx];
 
-  const material = new THREE.MeshPhongMaterial({ color: "#ff0000" });
-  const geometry = new THREE.CylinderGeometry(5, 5, length, 20, 1, false);
+  const material = new THREE.MeshPhongMaterial({
+    color: "#ff0000",
+  });
+  const geometry = new THREE.CylinderGeometry(2, 2, length, 20, 1, false);
   geometry.translate(0, length / 2, 0);
   const mesh = new THREE.Mesh(geometry, material);
   mesh.position.y = offset;
@@ -62,9 +64,7 @@ function resizeRendererToDisplaySize(renderer: any) {
   return needResize;
 }
 
-function render(time: any) {
-  time *= 0.001;
-
+function render() {
   if (resizeRendererToDisplaySize(renderer)) {
     const canvas = renderer.domElement;
     camera.aspect = canvas.clientWidth / canvas.clientHeight;
@@ -72,8 +72,6 @@ function render(time: any) {
   }
 
   renderer.render(scene, camera);
-
-  //    requestAnimationFrame(render);
 }
 
 requestAnimationFrame(render);
